@@ -5,7 +5,7 @@
         <v-system-bar status color="primary">
           <v-spacer></v-spacer>
           <v-toolbar-title class="text-uppercase">
-            <span class="font-weight-black txt">game</span>
+            <span class="font-weight-black txt">login</span>
             <span class="font-weight-thin">code</span>
           </v-toolbar-title>
           <v-spacer></v-spacer>
@@ -43,7 +43,7 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-btn flat block small>Submit</v-btn>
+          <v-btn @click="submit" flat block small>Submit</v-btn>
         </v-card-actions>
       </v-card>
     </v-layout>
@@ -57,7 +57,12 @@ export default {
     email: null,
     password: null,
     repeat: null
-  })
+  }),
+  methods: {
+    submit() {
+      console.log(this.email)
+    }
+  }
 }
 </script>
 
