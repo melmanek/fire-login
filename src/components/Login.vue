@@ -6,7 +6,7 @@
           <v-spacer></v-spacer>
           <v-toolbar-title class="text-uppercase">
             <span class="font-weight-black txt">login</span>
-            <span class="font-weight-thin">code</span>
+            <span class="font-weight-thin">form</span>
           </v-toolbar-title>
           <v-spacer></v-spacer>
         </v-system-bar>
@@ -26,15 +26,6 @@
             label="password"
             ref="password"
             v-model="password"
-            type="password"
-            class="primary--text"
-            color="white"
-            required
-          ></v-text-field>
-          <v-text-field
-            label="repeat password"
-            v-model="repeat"
-            ref="repeat"
             type="password"
             class="primary--text"
             color="white"
@@ -60,10 +51,10 @@ export default {
   }),
   methods: {
     submit() {
-      console.log(this.email)
+      console.log(this.email);
     }
   }
-}
+};
 </script>
 
 <style scoped>
