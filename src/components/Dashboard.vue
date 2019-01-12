@@ -1,9 +1,15 @@
 <template>
-  <span>dashboard</span>
+  <span>dashboard! {{ email }}</span>
 </template>
 
 <script>
 export default {
-  name: "Dashboard"
+  name: "Dashboard",
+  data: () => ({}),
+  computed: {
+    email() {
+      return this.$store.getters.email;
+    }
+  }
 };
 </script>

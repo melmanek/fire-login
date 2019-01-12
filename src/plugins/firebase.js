@@ -1,5 +1,6 @@
-import * as firebase from "firebase/app"
-import "firebase/auth"
+import * as firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
 
 firebase.initializeApp({
   apiKey: "AIzaSyDZWZObmF0TL5ScAz-GMnlkKHYS0F1eSmU",
@@ -8,6 +9,11 @@ firebase.initializeApp({
   projectId: "login-fd9f2",
   storageBucket: "login-fd9f2.appspot.com",
   messagingSenderId: "583451841567"
-})
+});
 
-export const auth = firebase.auth()
+const auth = firebase.auth();
+
+const db = firebase.firestore();
+db.settings({ timestampsInSnapshots: true });
+
+export { auth, db };

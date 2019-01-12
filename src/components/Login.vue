@@ -1,19 +1,18 @@
 <template>
   <v-container app fluid fill-height>
     <v-layout justify-center align-center>
-      <v-card ref="form" flat color="primary elevation-0">
+      <v-card flat color="primary elevation-0">
         <v-system-bar status color="primary">
           <v-spacer></v-spacer>
           <v-toolbar-title class="text-uppercase">
-            <span class="font-weight-black txt">login</span>
-            <span class="font-weight-thin">form</span>
+            <span class="font-weight-black txt">log</span>
+            <span class="font-weight-thin">-in</span>
           </v-toolbar-title>
           <v-spacer></v-spacer>
         </v-system-bar>
         <v-divider></v-divider>
         <v-card-text class="pt-0">
           <v-text-field
-            ref="email"
             v-model="email"
             type="email"
             label="email"
@@ -24,17 +23,20 @@
           </v-text-field>
           <v-text-field
             label="password"
-            ref="password"
             v-model="password"
-            type="password"
+            :type="unhidden ? 'text' : 'password'"
             class="primary--text"
             color="white"
             required
-          ></v-text-field>
+          >
+            <v-icon small slot="append" @click="unhidden = !unhidden;">
+              {{ icon }}
+            </v-icon>
+          </v-text-field>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-btn @click="submit" flat block small>Submit</v-btn>
+          <v-btn @click.prevent="submit" flat block small>Zaloguj</v-btn>
         </v-card-actions>
       </v-card>
     </v-layout>
@@ -42,23 +44,33 @@
 </template>
 
 <script>
+import * as fb from "@/plugins/firebase";
 export default {
   name: "Login",
   data: () => ({
     email: null,
     password: null,
-    repeat: null
+    unhidden: false
   }),
+  computed: {
+    icon() {
+      if (this.unhidden) {
+        return "visibility";
+      } else {
+        return "visibility_off";
+      }
+    }
+  },
   methods: {
     submit() {
-      console.log(this.email);
+      fb.auth
+        .signInWithEmailAndPassword(this.email, this.password)
+        .catch(err => {
+          console.log(err.message);
+        });
     }
   }
 };
 </script>
 
-<style scoped>
-.txt {
-  color: var(--v-secondary-base) !important;
-}
-</style>
+<style scoped></style>

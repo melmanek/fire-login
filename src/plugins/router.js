@@ -1,18 +1,14 @@
 import Vue from "vue";
 import Router from "vue-router";
+import store from "../plugins/store";
 import Login from "@/components/Login";
 import Dashboard from "@/components/Dashboard";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
-  base: "/",
   routes: [
-    // {
-    //   path: "*",
-    //   component: () => import("./../components/Dashboard.vue")
-    // },
     {
       path: "*",
       redirect: "/dashboard"
@@ -26,9 +22,20 @@ export default new Router({
       path: "/dashboard",
       name: "Dashboard",
       component: Dashboard,
-      meta: {
-        requiresAuth: true
-      }
+      meta: { requiresAuth: true }
     }
   ]
 });
+router.beforeEach((to, from, next) => {
+  const req = to.matched.some(e => e.meta.requiresAuth);
+  const user = store.state.currentUser;
+
+  if (req && !user) {
+    next("/login");
+  } else if (req && user) {
+    next();
+  } else {
+    next();
+  }
+});
+export default router;
